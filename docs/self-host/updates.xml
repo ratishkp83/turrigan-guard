@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- Chrome/Edge update manifest for the SELF-HOSTED Turrigan Guard for Enterprise .crx.
+     appid is the stable enterprise extension id (pinned by the manifest "key"). Update the codebase
+     URL to where you host the signed .crx, and bump `version` to match the packaged version on each
+     release. Host this file and the .crx on your own HTTPS server (e.g. turrigan.com/guard/). -->
+<gupdate xmlns='http://www.google.com/update2/response' protocol='2.0'>
+  <app appid='lgmabljmaealpiaddahlmlohicohljdp'>
+    <updatecheck codebase='https://turrigan.com/guard/enterprise-1.0.0.crx' version='1.0.0' />
+  </app>
+</gupdate>
