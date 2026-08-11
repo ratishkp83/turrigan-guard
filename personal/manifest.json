@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Turrigan Guard",
   "version": "1.0.0",
-  "description": "Stop personal data going into AI apps. Checks the current prompt for PII the moment you hit Enter/Send and asks you to review. On-device only: nothing ever leaves your browser.",
+  "description": "Stops personal data reaching AI apps. Scans your prompt for PII the moment you hit Send and asks you to review, on-device.",
   "host_permissions": [
     "https://chatgpt.com/*",
     "https://chat.openai.com/*",
@@ -11,7 +11,15 @@
     "https://copilot.microsoft.com/*",
     "https://m365.cloud.microsoft/*"
   ],
-  "action": { "default_popup": "popup.html", "default_title": "Turrigan Guard" },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Turrigan Guard",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png"
+    }
+  },
   "content_scripts": [
     {
       "matches": [
@@ -22,10 +30,21 @@
         "https://copilot.microsoft.com/*",
         "https://m365.cloud.microsoft/*"
       ],
-      "js": ["core/detector.js", "edition.js", "core/guard-core.js"],
+      "js": [
+        "core/detector.js",
+        "edition.js",
+        "core/guard-core.js"
+      ],
       "run_at": "document_idle",
       "world": "ISOLATED",
       "all_frames": false
     }
-  ]
+  ],
+  "minimum_chrome_version": "116",
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEArKq8tpgEP1FQ/0ZXnD7O0ZK9LLgkgsqE38Ndewx/2qvBdeVdZhwQuAeJo9lMveWrnRMegtazN2wONDaLqk8UZRkkq8jyh6AKwG0eSJwwiTWw++dQI7fW94CjLkQWuvbWGw5kgBK9fihwAZw8n5m0isajZPQ145iSkKp763vfJOhIS9M8t/IyJfPrztVeW77azX/qY2lcvA/P95zmftzYCFnBXZNrhHIZjDzwbZkIKlJ3PfcJHVSjy5o2J5p3BCowoQI/KlzqyOYQi125NMWLnNe2FR02QgwWgv9lKfPZWJeiwP46F9Sgk/RDqnkMBCfy0L3qa46TibpmzVr1xKdM4wIDAQAB"
 }

@@ -7,6 +7,8 @@
 const fs = require("fs");
 const path = require("path");
 
+const ICON_SIZES = [16, 32, 48, 128];
+
 function copyCore(dest) {
   const dir = path.join(dest, "core");
   fs.mkdirSync(dir, { recursive: true });
@@ -16,7 +18,17 @@ function copyCore(dest) {
   console.log("  core/ -> " + dir.replace(/\\/g, "/"));
 }
 
+// Icons live once in icons/ and are copied into each edition (MV3 loads only files inside the folder).
+function copyIcons(dest) {
+  const dir = path.join(dest, "icons");
+  fs.mkdirSync(dir, { recursive: true });
+  for (const s of ICON_SIZES) {
+    const f = `icon${s}.png`;
+    fs.copyFileSync(path.join("icons", f), path.join(dir, f));
+  }
+  console.log("  icons/ -> " + dir.replace(/\\/g, "/"));
+}
+
 console.log("Assembling loadable extensions:");
-copyCore("personal");
-copyCore("enterprise");
+for (const ed of ["personal", "enterprise"]) { copyCore(ed); copyIcons(ed); }
 console.log("Done. Load personal/ (free, zero-egress) or enterprise/ (paid, Turrigan-connected) as unpacked.");

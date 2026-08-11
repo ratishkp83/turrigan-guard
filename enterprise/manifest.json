@@ -2,9 +2,14 @@
   "manifest_version": 3,
   "name": "Turrigan Guard for Enterprise",
   "version": "1.0.0",
-  "description": "Stop personal data going into AI apps, with a tamper-evident audit trail in your Turrigan tenant. On-device PII block at submission; proceeding past both prompts is recorded (subscription-gated).",
-  "permissions": ["storage", "alarms"],
-  "optional_host_permissions": ["https://api.turrigan.com/*"],
+  "description": "On-device PII block for AI apps, plus a tamper-evident audit trail in your Turrigan tenant when a user proceeds. Subscription-gated.",
+  "permissions": [
+    "storage",
+    "alarms"
+  ],
+  "optional_host_permissions": [
+    "https://api.turrigan.com/*"
+  ],
   "host_permissions": [
     "https://chatgpt.com/*",
     "https://chat.openai.com/*",
@@ -13,9 +18,21 @@
     "https://copilot.microsoft.com/*",
     "https://m365.cloud.microsoft/*"
   ],
-  "background": { "service_worker": "background.js" },
-  "action": { "default_popup": "popup.html", "default_title": "Turrigan Guard for Enterprise" },
-  "storage": { "managed_schema": "schema/managed_schema.json" },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Turrigan Guard for Enterprise",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png"
+    }
+  },
+  "storage": {
+    "managed_schema": "schema/managed_schema.json"
+  },
   "content_scripts": [
     {
       "matches": [
@@ -26,10 +43,21 @@
         "https://copilot.microsoft.com/*",
         "https://m365.cloud.microsoft/*"
       ],
-      "js": ["core/detector.js", "edition.js", "core/guard-core.js"],
+      "js": [
+        "core/detector.js",
+        "edition.js",
+        "core/guard-core.js"
+      ],
       "run_at": "document_idle",
       "world": "ISOLATED",
       "all_frames": false
     }
-  ]
+  ],
+  "minimum_chrome_version": "116",
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAzn4aH8FiOTl7VUms/R/TLtlpv4EyWesinX1p184q1HqXAA1oDoWe0TCQKh9L7/pzCPbpU5Ow1G0hiAg6wPUXHxGsj7vF4Dzaqs44DMxLuTP9N2YFtFRnGy5WIW3U8Ls16LhuT7Y6sfoexUMVoziAlukfyg3ZTev1iXQT5ys0hJWWZjz5MHG7XJv1kwgFKhjybAqfSSaiM0pbNRy0Pe7iF2Y6PdiHOUnEOFASMRcjjRA5ZKEebCpJOCGSuIBfh6IQQ71t6Yegs7pcUJjrLcNJHg5GewqZK8+MGNHEVKY6AZ3h89PuMSVrUirTPjiU0KR9FslxBl/74FdhkJXYcbl7LQIDAQAB"
 }

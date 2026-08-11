@@ -1,11 +1,12 @@
 # Turrigan Guard - repository ignores
 
-# Signing keys and secrets - NEVER commit (kept in a secure store outside the repo)
+# Signing keys and secrets - NEVER commit (kept in a secure store outside the repo).
+# The signing/gen_keys.sh SCRIPT is tracked; only the generated key material is ignored.
 *.pem
 *.key
 *.p12
 *.pfx
-signing/
+signing/*.id
 secrets/
 
 # Packaged build artifacts (produced by the package pipeline, WI-P4)
@@ -14,10 +15,12 @@ secrets/
 dist/
 web-ext-artifacts/
 
-# Generated core copies - regenerate with: node build.js
-# (source of truth is core/; MV3 needs a copy inside each edition folder)
+# Generated copies - regenerate with: node build.js
+# (sources of truth are core/ and icons/; MV3 needs a copy inside each edition folder)
 personal/core/
 enterprise/core/
+personal/icons/
+enterprise/icons/
 
 # Icon build intermediates (the final PNGs under icons/ ARE committed)
 icons/build/
