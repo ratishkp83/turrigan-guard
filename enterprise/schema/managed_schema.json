@@ -1,0 +1,22 @@
+{
+  "$comment": "Enterprise admin policy for Turrigan Guard for Enterprise. Push via Chrome/Edge managed policy (3rdparty extension settings). Managed values override anything set locally, so IT controls where audit goes and users cannot change it.",
+  "type": "object",
+  "properties": {
+    "apiBaseUrl": {
+      "type": "string",
+      "description": "Base URL of your Turrigan Guard API, e.g. https://api.turrigan.com/v1/guard. The extension posts events to {apiBaseUrl}/events and polls {apiBaseUrl}/entitlement."
+    },
+    "apiKey": {
+      "type": "string",
+      "description": "A guard:ingest-scoped Turrigan API key for this tenant. Sent as the X-API-Key header."
+    },
+    "userId": {
+      "type": "string",
+      "description": "Optional user identity to stamp on audit events (e.g. corporate username/UPN)."
+    },
+    "orgId": {
+      "type": "string",
+      "description": "Optional organisation/tenant identifier to stamp on audit events."
+    }
+  }
+}

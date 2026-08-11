@@ -1,0 +1,31 @@
+{
+  "manifest_version": 3,
+  "name": "Turrigan Guard",
+  "version": "1.0.0",
+  "description": "Stop personal data going into AI apps. Checks the current prompt for PII the moment you hit Enter/Send and asks you to review. On-device only: nothing ever leaves your browser.",
+  "host_permissions": [
+    "https://chatgpt.com/*",
+    "https://chat.openai.com/*",
+    "https://claude.ai/*",
+    "https://gemini.google.com/*",
+    "https://copilot.microsoft.com/*",
+    "https://m365.cloud.microsoft/*"
+  ],
+  "action": { "default_popup": "popup.html", "default_title": "Turrigan Guard" },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://chatgpt.com/*",
+        "https://chat.openai.com/*",
+        "https://claude.ai/*",
+        "https://gemini.google.com/*",
+        "https://copilot.microsoft.com/*",
+        "https://m365.cloud.microsoft/*"
+      ],
+      "js": ["core/detector.js", "edition.js", "core/guard-core.js"],
+      "run_at": "document_idle",
+      "world": "ISOLATED",
+      "all_frames": false
+    }
+  ]
+}

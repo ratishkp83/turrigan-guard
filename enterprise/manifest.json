@@ -1,0 +1,35 @@
+{
+  "manifest_version": 3,
+  "name": "Turrigan Guard for Enterprise",
+  "version": "1.0.0",
+  "description": "Stop personal data going into AI apps, with a tamper-evident audit trail in your Turrigan tenant. On-device PII block at submission; proceeding past both prompts is recorded (subscription-gated).",
+  "permissions": ["storage", "alarms"],
+  "optional_host_permissions": ["https://api.turrigan.com/*"],
+  "host_permissions": [
+    "https://chatgpt.com/*",
+    "https://chat.openai.com/*",
+    "https://claude.ai/*",
+    "https://gemini.google.com/*",
+    "https://copilot.microsoft.com/*",
+    "https://m365.cloud.microsoft/*"
+  ],
+  "background": { "service_worker": "background.js" },
+  "action": { "default_popup": "popup.html", "default_title": "Turrigan Guard for Enterprise" },
+  "storage": { "managed_schema": "schema/managed_schema.json" },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://chatgpt.com/*",
+        "https://chat.openai.com/*",
+        "https://claude.ai/*",
+        "https://gemini.google.com/*",
+        "https://copilot.microsoft.com/*",
+        "https://m365.cloud.microsoft/*"
+      ],
+      "js": ["core/detector.js", "edition.js", "core/guard-core.js"],
+      "run_at": "document_idle",
+      "world": "ISOLATED",
+      "all_frames": false
+    }
+  ]
+}

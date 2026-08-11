@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <style>
+    body { font: 13px/1.5 -apple-system, "Segoe UI", Roboto, Arial, sans-serif; width: 340px; margin: 0; color: #0f1115; }
+    header { display: flex; align-items: center; gap: 8px; padding: 12px 14px; border-bottom: 1px solid #eceef1; }
+    .dot { width: 18px; height: 18px; border-radius: 4px; background: #0f1115; position: relative; }
+    .dot:after { content: ""; position: absolute; left: 7px; top: 3px; width: 3px; height: 12px; background: #ff3b30; }
+    h1 { font-size: 13px; margin: 0; letter-spacing: .02em; }
+    section { padding: 12px 14px; }
+    section + section { border-top: 1px solid #eceef1; }
+    .status { display: flex; align-items: center; justify-content: space-between; }
+    .pill { font-size: 12px; font-weight: 700; border-radius: 999px; padding: 3px 10px; }
+    .on { background: #e7f4ea; color: #146c2e; }
+    .off { background: #fdecea; color: #b3261e; }
+    input[type=text], input[type=password] { width: 100%; box-sizing: border-box; border: 1px solid #e2e4e8; border-radius: 8px; padding: 8px 9px; font: inherit; margin-top: 8px; }
+    .row { display: flex; align-items: center; gap: 8px; margin-top: 8px; }
+    button.btn { background: #0f1115; color: #fff; border: none; border-radius: 8px; padding: 8px 13px; font-weight: 600; cursor: pointer; }
+    button.link { background: none; border: none; color: #b3261e; cursor: pointer; font-size: 12px; padding: 0; }
+    .hint { color: #6b7280; font-size: 12px; margin-top: 8px; }
+    .managed { color: #b3261e; font-size: 12px; font-weight: 600; margin-top: 8px; }
+    ul#log { list-style: none; margin: 8px 0 0; padding: 0; max-height: 150px; overflow: auto; }
+    ul#log li { border: 1px solid #eceef1; border-radius: 8px; padding: 6px 9px; margin-bottom: 6px; font-size: 12px; }
+    ul#log li .t { color: #6b7280; }
+    ul#log li .ok { color: #146c2e; font-weight: 600; } ul#log li .rt { color: #b3261e; font-weight: 600; }
+    .empty { color: #9aa0a6; font-size: 12px; }
+    #cfgstatus { font-size: 12px; color: #6b7280; }
+  </style>
+</head>
+<body>
+  <header><div class="dot"></div><h1>Turrigan Guard <span style="color:#9aa0a6;font-weight:600">Enterprise</span></h1></header>
+  <section>
+    <div class="status"><b>Subscription</b><span class="pill off" id="pill">checking...</span></div>
+    <div class="hint" id="until"></div>
+    <div class="row"><button class="btn" id="check">Check now</button></div>
+    <div class="hint" id="checkmsg"></div>
+  </section>
+  <section>
+    <b>Turrigan connection</b>
+    <input type="text" id="url" placeholder="https://api.turrigan.com/v1/guard" autocomplete="off" spellcheck="false" />
+    <input type="password" id="key" placeholder="guard:ingest API key (X-API-Key)" autocomplete="off" spellcheck="false" />
+    <div class="row"><button class="btn" id="save">Save</button><span id="cfgstatus"></span></div>
+    <div class="managed" id="managed" style="display:none">Managed by your organisation's policy.</div>
+    <div class="hint">Where audit events go and where entitlement is checked. Normally set centrally by IT via managed policy.</div>
+  </section>
+  <section>
+    <div class="status"><b>Recent deliveries</b><button class="link" id="clear">Clear</button></div>
+    <ul id="log"></ul>
+  </section>
+  <script src="popup.js"></script>
+</body>
+</html>
