@@ -6,7 +6,7 @@ stores reject or take down listings whose disclosures do not match behaviour).
 
 - **Publisher:** 8plus2 Omnitech OPC Private Limited
 - **Privacy policy URL (both editions):** `https://turrigan.com/guard-privacy.html`
-- **Category:** Productivity
+- **Category:** Privacy & Security
 - **Support email:** support@turrigan.com
 
 ---

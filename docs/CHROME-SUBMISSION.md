@@ -56,7 +56,7 @@ exactly so the disclosures match behaviour.
 - Summary (short description): the one-line summary from STORE-LISTING.md ("Stops personal data
   reaching AI apps...").
 - Description (detailed): the Personal detailed description from STORE-LISTING.md.
-- Category: `Productivity`.
+- Category: `Privacy & Security`.
 - Language: English.
 - Screenshots: shots 1 and 2 above. Icon: `icons/icon128.png`.
 
@@ -81,7 +81,7 @@ Submit for review.
 - Name: `Turrigan Guard for Enterprise`
 - Summary: the Enterprise short description from STORE-LISTING.md.
 - Description: the Enterprise detailed description from STORE-LISTING.md.
-- Category: `Productivity`. Screenshots: shots 1, 2, and 3.
+- Category: `Privacy & Security`. Screenshots: shots 1, 2, and 3.
 
 **Privacy tab**
 - Single purpose: the Enterprise single-purpose sentence from STORE-LISTING.md.
