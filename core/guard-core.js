@@ -167,8 +167,7 @@
       ".tg-back{position:fixed;inset:0;z-index:2147483647;background:rgba(15,17,21,.55);display:flex;align-items:center;justify-content:center;font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}" +
       ".tg-card{width:min(440px,92vw);background:#fff;color:#0f1115;border-radius:14px;box-shadow:0 12px 40px rgba(0,0,0,.35);overflow:hidden}" +
       ".tg-hd{display:flex;align-items:center;gap:10px;padding:16px 18px 0}" +
-      ".tg-dot{width:22px;height:22px;border-radius:5px;background:#0f1115;position:relative;flex:0 0 auto}" +
-      ".tg-dot:after{content:'';position:absolute;left:9px;top:4px;width:4px;height:14px;background:#ff3b30}" +
+      ".tg-mark{width:22px;height:22px;flex:0 0 auto;display:block}" +
       ".tg-ttl{font-size:15px;font-weight:700;letter-spacing:.02em}" +
       ".tg-bd{padding:10px 18px 4px;font-size:14px;line-height:1.5;color:#3a3f47}" +
       ".tg-types{margin:12px 0 4px;display:flex;flex-wrap:wrap;gap:6px}" +
@@ -181,13 +180,24 @@
       "</style>";
   }
 
+  // The Turrigan Guard brand mark (gold T + keyhole on the sentry shield), inline so the shadow-DOM
+  // modal shows the real icon without needing a web-accessible image resource.
+  function markSvg() {
+    return '<svg class="tg-mark" viewBox="0 0 128 128" width="22" height="22" aria-hidden="true">' +
+      '<path d="M36 18 L92 18 Q106 18 106 32 L106 66 Q106 96 64 116 Q22 96 22 66 L22 32 Q22 18 36 18 Z" fill="#0b1220" stroke="#e8b64c" stroke-width="5" stroke-linejoin="round"/>' +
+      '<rect x="41" y="40" width="46" height="13" rx="2" fill="#e8b64c"/>' +
+      '<rect x="57" y="40" width="14" height="50" rx="2" fill="#e8b64c"/>' +
+      '<circle cx="64" cy="60" r="4.5" fill="#0b1220"/>' +
+      '<rect x="62" y="60" width="4" height="12" fill="#0b1220"/></svg>';
+  }
+
   function step1Html(findings) {
     var chips = findings.map(function (f) {
       return '<span class="tg-chip">' + esc(f.type) + " · " + esc(f.sample) + "</span>";
     }).join("");
     return styleTag() +
       '<div class="tg-back"><div class="tg-card">' +
-      '<div class="tg-hd"><div class="tg-dot"></div><div class="tg-ttl">Possible personal data</div></div>' +
+      '<div class="tg-hd">' + markSvg() + '<div class="tg-ttl">Possible personal data</div></div>' +
       '<div class="tg-bd">This prompt looks like it contains personal information. Review it before sending to the AI app.' +
       '<div class="tg-types">' + chips + "</div></div>" +
       '<div class="tg-ft">' +
@@ -200,7 +210,7 @@
     var s = edition().step2();
     return styleTag() +
       '<div class="tg-back"><div class="tg-card">' +
-      '<div class="tg-hd"><div class="tg-dot"></div><div class="tg-ttl">Confirm before sending</div></div>' +
+      '<div class="tg-hd">' + markSvg() + '<div class="tg-ttl">Confirm before sending</div></div>' +
       '<div class="tg-bd">' + esc(s.body) + "</div>" +
       '<div class="tg-ft">' +
       '<button class="tg-btn tg-secondary" id="tg-cancel2">Cancel</button>' +

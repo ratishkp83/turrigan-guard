@@ -5,15 +5,14 @@
   <style>
     body { font: 13px/1.5 -apple-system, "Segoe UI", Roboto, Arial, sans-serif; width: 300px; margin: 0; color: #0f1115; }
     header { display: flex; align-items: center; gap: 8px; padding: 12px 14px; border-bottom: 1px solid #eceef1; }
-    .dot { width: 18px; height: 18px; border-radius: 4px; background: #0f1115; position: relative; }
-    .dot:after { content: ""; position: absolute; left: 7px; top: 3px; width: 3px; height: 12px; background: #ff3b30; }
+    .mark { width: 20px; height: 20px; border-radius: 4px; display: block; }
     h1 { font-size: 13px; margin: 0; letter-spacing: .02em; }
     section { padding: 12px 14px; color: #3a3f47; }
     .ok { color: #146c2e; font-weight: 600; }
   </style>
 </head>
 <body>
-  <header><div class="dot"></div><h1>Turrigan Guard</h1></header>
+  <header><img class="mark" src="icons/icon32.png" width="20" height="20" alt="" /><h1>Turrigan Guard</h1></header>
   <section>
     Checks the current prompt for personal data the moment you hit Enter or Send, and asks you to
     review before it goes to the AI app.
