@@ -5,6 +5,6 @@
      release. Host this file and the .crx on your own HTTPS server (e.g. turrigan.com/guard/). -->
 <gupdate xmlns='http://www.google.com/update2/response' protocol='2.0'>
   <app appid='lgmabljmaealpiaddahlmlohicohljdp'>
-    <updatecheck codebase='https://turrigan.com/guard/enterprise-1.0.0.crx' version='1.0.0' />
+    <updatecheck codebase='https://turrigan.com/guard/enterprise-1.0.1.crx' version='1.0.1' />
   </app>
 </gupdate>

@@ -12,8 +12,8 @@ passed (`node qa-package.js`).
 
 | Edition | Upload this | Visibility |
 |---|---|---|
-| Personal (free) | `dist/personal-1.0.0.zip` | **Public** |
-| Enterprise (paid) | `dist/enterprise-1.0.0.zip` | **Unlisted** |
+| Personal (free) | `dist/personal-1.0.1.zip` | **Public** |
+| Enterprise (paid) | `dist/enterprise-1.0.1.zip` | **Unlisted** |
 
 Do not rename the zips. If you rebuild, re-run `node qa-package.js` and upload the fresh zip.
 

@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Turrigan Guard for Enterprise",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "On-device PII block for AI apps, plus a tamper-evident audit trail in your Turrigan tenant when a user proceeds. Subscription-gated.",
   "permissions": [
     "storage",

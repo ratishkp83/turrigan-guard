@@ -40,7 +40,7 @@ enrolled/managed browser. Run before submitting to the store and before a client
 
 ### B1. Load and smoke test (both editions, Chrome and Edge)
 
-1. Unzip `dist/personal-1.0.0.zip` (and `enterprise-1.0.0.zip`) to a folder. On `chrome://extensions`
+1. Unzip `dist/personal-1.0.1.zip` (and `enterprise-1.0.1.zip`) to a folder. On `chrome://extensions`
    with Developer mode on, Load unpacked, pick the folder. Confirm it loads with **no errors** on the
    card and the id matches the table in `docs/ENTERPRISE-DEPLOYMENT.md`.
 2. Open the popup. Personal renders its status; Enterprise renders the config fields and the
