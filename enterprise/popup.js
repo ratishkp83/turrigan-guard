@@ -99,28 +99,33 @@
       origin = u.origin + "/*";
     } catch (e) { status.textContent = "That is not a valid address."; return; }
 
-    function persist() {
-      // Preserve the existing key if the field was left blank (e.g. only the address was changed).
-      chrome.storage.local.get({ apiKey: "" }, function (cur) {
-        var finalKey = key || cur.apiKey || "";
-        chrome.storage.local.set({ apiBaseUrl: url, apiKey: finalKey }, function () {
-          recheck("Saved. Checking...");
-        });
+    // Persist the config FIRST, unconditionally. Requesting an optional host permission closes the
+    // popup, which destroys this script before a permission callback can run, so gating the save on
+    // that callback silently dropped the address (the "No Turrigan address is set" symptom). Save, then
+    // ask for the host permission separately.
+    chrome.storage.local.get({ apiKey: "" }, function (cur) {
+      var finalKey = key || cur.apiKey || "";
+      chrome.storage.local.set({ apiBaseUrl: url, apiKey: finalKey }, function () {
+        status.textContent = "Saved. Checking...";
+        // Host reach is narrowed to Turrigan (optional_host_permissions). If it is already granted, run
+        // the check now; otherwise ask, and if that closes the popup the config is already saved, so a
+        // later Check succeeds once access is allowed.
+        function verify() { recheck("Saved. Checking..."); }
+        try {
+          chrome.permissions.contains({ origins: [origin] }, function (has) {
+            if (chrome.runtime.lastError) { verify(); return; }
+            if (has) { verify(); return; }
+            chrome.permissions.request({ origins: [origin] }, function (granted) {
+              if (chrome.runtime.lastError || !granted) {
+                status.textContent = "Saved. Access to " + origin + " is not allowed yet: click Check and choose Allow to verify the subscription.";
+                return;
+              }
+              verify();
+            });
+          });
+        } catch (e) { verify(); }
       });
-    }
-    // Host reach is narrowed to Turrigan (optional_host_permissions). A non-Turrigan host is refused
-    // here by design; a self-hosted deployment adds its host to the manifest/policy and repackages.
-    try {
-      chrome.permissions.request({ origins: [origin] }, function (granted) {
-        if (chrome.runtime.lastError || !granted) {
-          status.textContent = "Access to " + origin + " was not allowed. Click Save again and choose Allow.";
-          return;
-        }
-        persist();
-      });
-    } catch (e) {
-      status.textContent = "Could not request access to " + origin + ".";
-    }
+    });
   });
 
   el("check").addEventListener("click", function () { recheck("Checking..."); });

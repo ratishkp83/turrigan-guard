@@ -42,6 +42,24 @@
     return rem === 1;
   }
 
+  // Phone validation, precision-first. Accepts a candidate only if its digit count is in phone range
+  // and it is shaped like a phone number, so it catches Indian 5-5 grouping (98989 78548), +country
+  // code, and NANP, without flagging bare long ids. National numbers are 10 to 11 digits; 12 to 13
+  // digits count only when a "+" country code is present (so a 12-digit Aadhaar or reference id without
+  // a "+" is not mistaken for a phone). A bare run with no "+" and no separator counts only at 10 to 11.
+  function phoneOk(v) {
+    var raw = String(v).trim();
+    var d = raw.replace(/\D/g, "");
+    if (d.length < 10 || d.length > 13) return false;
+    if (/^(\d)\1*$/.test(d)) return false;              // all-identical digits are not a real number
+    var hasPlus = /\+/.test(raw);
+    if (d.length > 11 && !hasPlus) return false;        // 12 to 13 digits are a phone only with a + code
+    var hasSep = /[\s.\-]/.test(raw);
+    var contiguous = /^\d{10,11}$/.test(raw);
+    if (!hasPlus && !hasSep && !contiguous) return false;
+    return true;
+  }
+
   function mask(v) {
     var s = String(v).replace(/\s+/g, " ").trim();
     if (s.length <= 4) return new Array(s.length + 1).join("•");
@@ -106,7 +124,7 @@
     { type: "emirates_id", find: reFinder(/\b784-?\d{4}-?\d{7}-?\d\b/) },
     { type: "credit_card", find: reFinder(/\b(?:\d[ \-]?){13,19}\b/, luhn) },
     { type: "iban", find: reFinder(/\b[A-Za-z]{2}\d{2}(?:[ ]?[A-Za-z0-9]){11,30}\b/, ibanOk) },
-    { type: "phone", find: reFinder(/(?:\+?\d{1,3}[\s.\-]?)?(?:\(?\d{3}\)?[\s.\-]?)\d{3}[\s.\-]?\d{4}\b/) },
+    { type: "phone", find: reFinder(/\+?\d[\d\s().\-]{8,16}\d/, phoneOk) },
     { type: "date_of_birth", find: dobFinder },
     // context-anchored, digit-required so an ordinary following word does not match:
     { type: "passport", find: cueFinder(/\bpassport\b/i, "[A-Za-z0-9]{6,9}", 28, true) },
