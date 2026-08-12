@@ -1,0 +1,7 @@
+{
+  "$comment": "Turrigan Guard for Enterprise - managed configuration template (WI-P7). These are the values IT pushes to the extension through Chrome or Edge managed policy, keyed by the enterprise extension id lgmabljmaealpiaddahlmlohicohljdp. The keys match enterprise/schema/managed_schema.json exactly. Managed values override anything a user sets locally, so IT controls where audit goes and users cannot change it. Fill apiKey with the guard:ingest key you minted for this tenant. userId and orgId are optional; remove them if you do not want to stamp identity on audit events. Delete this $comment line before pasting into a console that rejects unknown keys. This file lives in docs/ on purpose: it must never ship inside the extension package.",
+  "apiBaseUrl": "https://api.turrigan.com/v1/guard",
+  "apiKey": "REPLACE_WITH_YOUR_GUARD_INGEST_KEY",
+  "userId": "",
+  "orgId": ""
+}
