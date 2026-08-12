@@ -23,11 +23,23 @@ fs.mkdirSync("dist", { recursive: true });
 function zipEdition(ed) {
   const out = path.resolve("dist", `${ed}-${VERSION}.zip`);
   if (fs.existsSync(out)) fs.unlinkSync(out);
-  // Zip from INSIDE the edition folder so manifest.json sits at the archive root (a store requirement).
-  // -X drops platform extra-attributes; -q quiet; -r recursive.
-  execFileSync("zip", ["-r", "-X", "-q", out, "."], { cwd: ed });
+  // The Chrome Web Store and Edge Add-ons REJECT a manifest `key` field (they assign the id themselves).
+  // The pinned key is only for the self-hosted .crx and stable load-unpacked dev id, so strip it from the
+  // store zip and restore the source manifest untouched afterwards.
+  const manPath = path.join(ed, "manifest.json");
+  const original = fs.readFileSync(manPath, "utf8");
+  const stripped = JSON.parse(original);
+  delete stripped.key;
+  fs.writeFileSync(manPath, JSON.stringify(stripped, null, 2) + "\n");
+  try {
+    // Zip from INSIDE the edition folder so manifest.json sits at the archive root (a store requirement).
+    // -X drops platform extra-attributes; -q quiet; -r recursive.
+    execFileSync("zip", ["-r", "-X", "-q", out, "."], { cwd: ed });
+  } finally {
+    fs.writeFileSync(manPath, original); // restore the pinned-key source manifest byte-for-byte
+  }
   const kb = (fs.statSync(out).size / 1024).toFixed(1);
-  console.log(`  dist/${ed}-${VERSION}.zip  (${kb} KB)`);
+  console.log(`  dist/${ed}-${VERSION}.zip  (${kb} KB, store-safe: no manifest key)`);
 }
 
 console.log(`\nPackaging Turrigan Guard v${VERSION}:`);

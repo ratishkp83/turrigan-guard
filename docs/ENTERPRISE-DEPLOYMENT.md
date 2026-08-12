@@ -28,18 +28,31 @@ inactive and nothing will be logged.
 Keep the ingest key out of email and chat. Hand it to IT through the client's secret manager or the
 managed-policy channel directly.
 
-## 1. Stable extension ids (never change)
+## 1. Extension ids (the id depends on the install source)
 
-The manifest `key` field pins a constant id per edition across every update, so force-install lists and
-managed policy keep working after each release. These ids are cryptographically derived from the packaged
-public key and are verified by the packaged-build QA (`qa-package.js`), not typed by hand.
+The id is stable within each install source, but the two sources do NOT share the same id. Use the id
+that matches the source you force-install from (section 2).
 
-| Edition | Extension id | Store visibility |
-|---|---|---|
-| Personal (free) | `ehklamohfapoghhffcoemikbkcjnmipe` | Public |
-| Enterprise (paid) | `lgmabljmaealpiaddahlmlohicohljdp` | Unlisted (force-install only) |
+**Self-hosted `.crx` source.** The manifest `key` pins a constant id across every update, so the
+force-install list and managed policy keep working after each release. These ids are derived
+cryptographically from the signing key and verified by `qa-package.js` and `sign.js`, not typed by hand:
 
-Enterprise deployment uses the enterprise id `lgmabljmaealpiaddahlmlohicohljdp` throughout.
+| Edition | Self-hosted id |
+|---|---|
+| Personal (free) | `ehklamohfapoghhffcoemikbkcjnmipe` |
+| Enterprise (paid) | `lgmabljmaealpiaddahlmlohicohljdp` |
+
+**Chrome Web Store / Edge Add-ons source.** The store assigns its OWN id when the item is created and
+rejects a manifest `key`, so the store id is DIFFERENT from the self-hosted id above (it is still
+permanent per item). Read it from the developer dashboard after you create the item, and record it here:
+
+| Edition | Store-assigned id |
+|---|---|
+| Enterprise (paid, unlisted) | `__________________________________` (fill in after item creation) |
+
+Personal is store-only, so in practice only its store id is ever used. Below, every id shown as
+`lgmabljmaealpiaddahlmlohicohljdp` is the **self-hosted** value; if you deploy from the store source,
+substitute the store-assigned enterprise id from the table above.
 
 ## 2. Choose an install source
 

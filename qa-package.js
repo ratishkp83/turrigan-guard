@@ -86,8 +86,13 @@ for (const ed of ["personal", "enterprise"]) {
 
   const m = JSON.parse(readFromZip(zip, "manifest.json"));
   check("version matches", m.version === VERSION, `${m.version} vs ${VERSION}`);
-  check("stable id derives from key", m.key && idFromKey(m.key) === EXPECTED_ID[ed],
-        m.key ? idFromKey(m.key) : "no key");
+  // Store requirement: the uploaded zip must NOT carry a manifest key (the store assigns the id, and
+  // rejects the upload otherwise). The pinned-key stable id is a self-host / load-unpacked property, so
+  // it is asserted against the SOURCE manifest, not the store zip.
+  check("no manifest key in store zip (CWS/Edge upload requirement)", !("key" in m));
+  const src = JSON.parse(fs.readFileSync(path.join(ed, "manifest.json"), "utf8"));
+  check("source manifest key derives the recorded self-host id",
+        src.key && idFromKey(src.key) === EXPECTED_ID[ed], src.key ? idFromKey(src.key) : "no key");
   check("host_permissions are exactly the 6 AI hosts", eqSet(m.host_permissions || [], AI_HOSTS));
   check("content_scripts match exactly the 6 AI hosts",
         m.content_scripts && m.content_scripts.length === 1 && eqSet(m.content_scripts[0].matches, AI_HOSTS));

@@ -13,7 +13,9 @@ stores reject or take down listings whose disclosures do not match behaviour).
 
 ## Turrigan Guard (Personal, free) - PUBLIC listing
 
-**Extension ID:** `ehklamohfapoghhffcoemikbkcjnmipe`
+**Extension ID (self-hosted / dev):** `ehklamohfapoghhffcoemikbkcjnmipe`. The Chrome Web Store and Edge
+Add-ons assign their own permanent id at item creation and reject a manifest key, so the store id will
+differ; record it from the dashboard after upload.
 
 **Single purpose:** Warn the user before personal data they typed is sent to an AI app, by checking the
 message on-device and asking them to review it.
@@ -44,7 +46,10 @@ message on-device and asking them to review it.
 
 ## Turrigan Guard for Enterprise (paid) - UNLISTED listing
 
-**Extension ID:** `lgmabljmaealpiaddahlmlohicohljdp`
+**Extension ID (self-hosted / dev):** `lgmabljmaealpiaddahlmlohicohljdp`. This is the id for the
+self-hosted `.crx` force-install source. The store assigns its own permanent id at item creation (it
+rejects a manifest key), so a store-source force-install uses the store-assigned id instead; record it
+from the dashboard after upload.
 
 **Single purpose:** Warn the user before personal data is sent to an AI app, and, when the user
 proceeds, record a minimised, masked audit note to the deploying organisation's own Turrigan system.

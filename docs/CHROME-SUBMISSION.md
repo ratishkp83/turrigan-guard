@@ -114,9 +114,11 @@ demo video, record the B1 smoke test.
 ## Timeline and after approval
 
 Review typically takes from a day to a couple of weeks and is outside our control. After Personal is
-approved, its public listing URL is the adoption funnel. After Enterprise is approved, capture its
-unlisted item URL and confirm the id is still `lgmabljmaealpiaddahlmlohicohljdp`; that id is what the IT
-deployment kit references.
+approved, its public listing URL is the adoption funnel. The store assigns each item its own permanent
+id (it is NOT the self-hosted `ehklam...`/`lgmabl...` id, and the store rejects a manifest key). After
+each item is created, capture the store-assigned id from the dashboard and record it in
+`docs/ENTERPRISE-DEPLOYMENT.md` section 1. For enterprise, that store id is what a store-source
+force-install references; the self-hosted `.crx` source keeps using `lgmabljmaealpiaddahlmlohicohljdp`.
 
 ## Edge (deferred)
 
